@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function BookCard({ book }) {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   return (
@@ -16,9 +18,9 @@ function BookCard({ book }) {
           {book.title} <br /> {book.author}
         </h5>
         <p className="card-text">${book.abstract}</p>
-        <a href="#" className="btn btn-primary">
+        <Link className="btn btn-primary" to={`/books/${book.id}`}>
           Mostra dettagli
-        </a>
+        </Link>
       </div>
     </div>
   );
