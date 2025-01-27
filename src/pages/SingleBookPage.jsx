@@ -4,13 +4,13 @@ import { useParams } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard";
 
 function SingleBookPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const [book, setBook] = useState(null);
 
   useEffect(() => {
-    axios.get(`${backendUrl}/books/${id}`).then((resp) => {
+    axios.get(`${backendUrl}/books/${slug}`).then((resp) => {
       setBook(resp.data.data);
     });
   }, []);

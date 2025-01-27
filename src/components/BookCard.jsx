@@ -18,7 +18,7 @@ function BookCard({ book }) {
           {book.title} <br /> {book.author}
         </h5>
         <p className="card-text">${book.abstract}</p>
-        <Link className="btn btn-primary" to={`/books/${book.id}`}>
+        <Link className="btn btn-primary" to={`/books/${book.slug}`}>
           Mostra dettagli
         </Link>
       </div>
