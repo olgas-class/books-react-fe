@@ -4,14 +4,21 @@ import { useEffect } from "react";
 import BookCard from "../components/BookCard";
 
 function BooksPage() {
+  const genres = ["Poesia Epica", "Romanzo Storico", "Romanzo di Avventura"];
+
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const getBooks = () => {
     const params = {};
     if (search.length > 0) {
       params.search = search;
+    }
+
+    if (selectedGenre !== "") {
+      params.genre = selectedGenre;
     }
 
     axios.get(`${backendUrl}/books`, { params }).then((resp) => {
@@ -32,6 +39,21 @@ function BooksPage() {
       <section>
         <h2>Elenco di libri</h2>
         <div className="my-4 d-flex">
+          {/* Filtro per genere */}
+          <select
+            name=""
+            id=""
+            value={selectedGenre}
+            onChange={(event) => setSelectedGenre(event.target.value)}
+          >
+            <option value="">Tutti</option>
+            {genres.map((curGenre, index) => (
+              <option key={index} value={curGenre}>
+                {curGenre}
+              </option>
+            ))}
+          </select>
+          {/* Campo di ricerca */}
           <input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
