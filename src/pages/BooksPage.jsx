@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import BookCard from "../components/BookCard";
+import { Link } from "react-router-dom"
 
 function BooksPage() {
   const genres = ["Poesia Epica", "Romanzo Storico", "Romanzo di Avventura"];
@@ -35,6 +36,7 @@ function BooksPage() {
       <section>
         <h1>Tutti i libri del mondo!</h1>
         <p>Vedi i libri che abbiamo preparato per te</p>
+        <Link to="/books/create" className="btn btn-success">Aggiungi un nuovo libro</Link>
       </section>
       <section>
         <h2>Elenco di libri</h2>

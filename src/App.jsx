@@ -3,6 +3,7 @@ import AppLayout from "./layouts/AppLayout";
 import HomePage from "./pages/HomePage";
 import BooksPage from "./pages/BooksPage";
 import SingleBookPage from "./pages/SingleBookPage";
+import CreateBookPage from "./pages/CreateBookPage"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route path="/books">
               <Route path="" element={<BooksPage />} />
               <Route path=":slug" element={<SingleBookPage />} />
+              <Route path="create" element={ <CreateBookPage />} />
             </Route>
           </Route>
         </Routes>
