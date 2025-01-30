@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAlertContext } from "../context/AlertContext";
+import { useGlobalContext } from "../context/GlobalContext";
 
 const CreateBookPage = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -12,6 +14,9 @@ const CreateBookPage = () => {
     abstract: "",
     image: "",
   };
+
+  const {setAlertData} = useAlertContext();
+  const {setIsLoading} = useGlobalContext();
 
   const [bookData, setBookData] = useState(defalutForm);
 
@@ -47,6 +52,8 @@ const CreateBookPage = () => {
       dataToSend.append(key, bookData[key]);
     }
 
+    // Mostra loader
+    setIsLoading(true);
     axios
       .post(`${backendUrl}/books`, dataToSend, {
         headers: {
@@ -54,9 +61,26 @@ const CreateBookPage = () => {
         },
       })
       .then((resp) => {
+        // Impostiamo l'alert al success
+        setAlertData({
+          type: "success",
+          message: `Il libro ${bookData.title} è stato aggiunto con successo`
+        });
         // Quando arriva il messaggio di conferma facciamo redirect alla pagina di libri
         navigate("/books");
+      })
+      .catch(err => {
+        console.log(err);
+        setAlertData({
+          type: "danger",
+          message: "Ops, qualsa è andato storto. Riprova oppure contattaci"
+        })
+      }).finally(() => {
+        // Viene eseguito alla fine del codice asincrono
+        // Disabilito il loader
+        setIsLoading(false);
       });
+     
   };
 
   return (
